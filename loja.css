@@ -1,0 +1,533 @@
+/* =========================
+   CSS LIMPO - Página LOJA Cailla
+   ========================= */
+
+html {
+  overflow-y: scroll;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+nav a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+nav a:hover {
+  color: #8A1538;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #333;
+  transition: stroke 0.3s;
+}
+
+.menu-icon:hover {
+  stroke: #8A1538;
+}
+
+body.pagina-loja {
+  padding: 120px 40px 60px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff;
+}
+
+.container-loja {
+  display: flex;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 540px;
+}
+
+.container-loja .text-section {
+  width: 33.33%;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.container-loja .text-section h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  color: #3a3a3a;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.container-loja .image-section {
+  width: 66.66%;
+  overflow: hidden;
+  position: relative;
+}
+
+.container-loja .img-nossosprodutos {
+  width: 100%;
+  height: 170%;
+  object-fit: cover;
+  display: block;
+}
+
+
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(271px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+.product-wrapper {
+  width: 100%;
+  height: 361px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 8px;
+}
+
+.product-info {
+  margin-top: 15px;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  color: #8A1538;
+  margin-bottom: 15px;
+}
+
+.tamanho-select {
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.btn-add-carrinho-ajax {
+  background-color: #8A1538;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.btn-add-carrinho-ajax:hover {
+  background-color: #6f112d;
+}
+
+/* Wishlist ícone */
+.wishlist-form {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+.wishlist-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.wishlist-btn:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 900px) {
+  .container-loja {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .container-loja .text-section,
+  .container-loja .image-section {
+    width: 100%;
+    height: auto;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .product-wrapper {
+    height: 200px;
+  }
+}
+.carrinho-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #8A1538 ; /* Rosa Cailla */
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.cart-preview {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 280px;
+  z-index: 1000;
+  padding: 10px;
+}
+
+.cart-item-preview {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item-preview:last-child {
+  border-bottom: none;
+}
+
+.cart-item-preview img {
+  width: 50px;
+  height: auto;
+  border-radius: 6px;
+}
+
+.cart-item-preview .nome {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.ver-carrinho {
+  display: block;
+  text-align: center;
+  background-color: #8A1538;
+  color: #fff;
+  padding: 8px;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.ver-carrinho:hover {
+  background-color: #6e0f2c;
+}
+.filtros-categoria {
+  text-align: center;
+  margin: 30px 0 10px;
+  flex-wrap: wrap;
+}
+
+.filtros-categoria button {
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin: 5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filtros-categoria button:hover {
+  background-color: #8A1538; /* ou rosa claro da sua paleta */
+}
+
+.filtros-categoria button:focus {
+  outline: none;
+  background-color: #8A1538; /* realce para o botão ativo */
+}
+.filtros-categoria button.ativo {
+  background-color: #8A1538; /* cor da Cailla em destaque */
+  color: white;
+  font-weight: 600;
+}
+/* Permite que o rodapé fique sempre no final */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  flex: 1 0 auto; /* Faz com que o conteúdo ocupe o espaço restante */
+}
+
+footer.rodape {
+  flex-shrink: 0; /* Evita que o rodapé encolha */
+  background-color: #f6f6f6;
+  padding: 60px 40px 30px;
+  font-family: 'Poppins', sans-serif;
+  border-top: 1px solid #ddd;
+  width: 100%; /* Garante que o rodapé ocupe toda a largura da tela */
+}
+
+/* Estilização já existente do conteúdo do rodapé */
+.rodape-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+}
+
+.coluna {
+  flex: 1 1 220px;
+  margin: 20px;
+}
+
+.coluna h3 {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.coluna ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.coluna ul li {
+  margin-bottom: 10px;
+}
+
+.coluna ul li a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.coluna ul li a:hover {
+  color: #8A1538;
+}
+
+.newsletter-form input {
+  padding: 10px;
+  width: 100%;
+  max-width: 240px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.newsletter-form button {
+  padding: 10px 16px;
+  border: none;
+  background-color: #8A1538;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.newsletter-form button:hover {
+  background-color: #6e0f2c;
+}
+
+.rodape-copy {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}
+.social-icons a {
+  color: #8A1538;
+  font-size: 24px;
+  margin-right: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #6e0f2c;
+}
+.product-info {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  color: #8A1538;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.product-info label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.tamanho-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fdfdfd;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 14px;
+  width: 100%;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  margin-bottom: 12px;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238A1538' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 5.646a.5.5 0 0 1 .708 0L8 11.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+.btn-add-carrinho-ajax {
+  background-color: #8A1538;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.btn-add-carrinho-ajax:hover {
+  background-color: #6f112d;
+}
+.tamanhos-container {
+  margin-bottom: 12px;
+}
+
+.tamanhos-container label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.tamanhos-botoes {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-tamanho {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.btn-tamanho:hover {
+  background-color: #eee;
+}
+
+.btn-tamanho.ativo {
+  background-color: #8A1538;
+  color: white;
+  border-color: #8A1538;
+}

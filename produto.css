@@ -1,0 +1,333 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body.conta-body {
+  background-image: url('/static/assets/hawaii.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.wrapper {
+  flex: 1 0 auto;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+nav a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+nav a:hover {
+  color: #8A1538;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #333;
+  transition: stroke 0.3s;
+}
+
+.menu-icon:hover {
+  stroke: #8A1538;
+}
+
+/* ===== PRODUTO ===== */
+.produto-container {
+  max-width: 1200px;
+  margin: 120px auto 60px;
+  display: flex;
+  gap: 60px;
+  font-family: 'Poppins', sans-serif;
+  padding: 0 20px;
+}
+
+.produto-imagem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.produto-imagem img#imagemPrincipal {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  object-fit: contain;
+}
+
+.produto-imagem .miniaturas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.produto-imagem .miniaturas img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.produto-imagem .miniaturas img:hover {
+  transform: scale(1.05);
+  border-color: #8A1538;
+}
+
+.produto-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.produto-info h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: #111;
+}
+
+.produto-preco {
+  font-size: 1.6rem;
+  color: #8A1538;
+  font-weight: 600;
+}
+
+.produto-descricao {
+  color: #444;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.produto-info form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.produto-info select, .produto-info input[type="number"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.btn-add-carrinho {
+  padding: 12px;
+  background-color: #8A1538;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-add-carrinho:hover {
+  background-color: #6e0f2c;
+}
+
+.tabela-medidas {
+  margin-top: 16px;
+}
+
+.toggle-medidas {
+  background: none;
+  border: none;
+  color: #8A1538;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.tabela-medidas table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.tabela-medidas th, .tabela-medidas td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.tabela-medidas th {
+  background-color: #f9f9f9;
+  font-weight: 600;
+}
+
+/* Avaliações */
+.avaliacoes-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.avaliacoes-container h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.avaliacao-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.avaliacao-form textarea,
+.avaliacao-form select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-enviar-avaliacao {
+  background-color: #8A1538;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-enviar-avaliacao:hover {
+  background-color: #6e0f2c;
+}
+
+.avaliacao-item {
+  background-color: #f8f8f8;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+.selecionar-tamanho {
+  margin-top: 12px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.tamanhos-opcoes {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.tamanhos-opcoes input[type="radio"] {
+  display: none;
+}
+
+.tamanhos-opcoes label {
+  border: 1px solid #ccc;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  user-select: none;
+}
+
+.tamanhos-opcoes input[type="radio"]:checked + label {
+  background-color: #8A1538;
+  color: white;
+  border-color: #8A1538;
+}
+.accordion {
+  margin-top: 30px;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.accordion-btn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  transition: color 0.3s;
+}
+
+.accordion-btn:hover {
+  color: #8A1538;
+}
+
+.accordion-btn .icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s;
+  color: #8A1538;
+}
+
+.accordion-content {
+  display: none;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: #444;
+}
