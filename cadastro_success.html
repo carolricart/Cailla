@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro Bem-sucedido - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+</head>
+<body>
+
+  <!-- Menu -->
+  {% include 'menu.html' %}
+
+  <!-- Seção de fundo com mensagem -->
+  <section class="cadastro-background">
+    <div class="cadastro-overlay">
+      <div class="cadastro-conteudo">
+        <h1>Cadastro Realizado com Sucesso!</h1>
+        <p>Agora você pode entrar na sua conta e aproveitar os benefícios.</p>
+        <a href="/login" class="button-link">Ir para o Login</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  {% include 'rodape.html' %}
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Contatos Recebidos - Admin | Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+  {% include 'menu_admin.html' %}
+  <div class="content">
+    <div class="card">
+      <h2>Mensagens Recebidas</h2>
+
+      {% if contatos %}
+        <table class="tabela-admin">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Mensagem</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in contatos %}
+            <tr>
+              <td>{{ c.nome }}</td>
+              <td>{{ c.email }}</td>
+              <td>{{ c.mensagem }}</td>
+              <td>{{ c.dataEnvio.strftime('%d/%m/%Y %H:%M') if c.dataEnvio else '-' }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>Nenhuma mensagem recebida até o momento.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

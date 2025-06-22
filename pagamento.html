@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagamento - Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght=700&family=Poppins:wght=400;600&display=swap" rel="stylesheet">
+  <style>
+    #btnLoader {
+      animation: spin 1s linear infinite;
+      font-size: 16px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  {% include 'menu.html' %}
+
+  <main class="pagamento-container">
+    <h1>Finalizar Pagamento</h1>
+
+    <form class="pagamento-form" action="{{ url_for('processar_pagamento') }}" method="POST">
+      <input type="hidden" id="subtotal" value="{{ '%.2f'|format(subtotal) }}">
+      <h2>Informações Pessoais</h2>
+      <input type="text" name="nome" placeholder="Nome completo" required>
+      <input type="email" name="email" placeholder="E-mail" required>
+      <input type="text" name="cpf" placeholder="CPF" required>
+
+      <h2>Endereço de Entrega</h2>
+<input type="text" id="cep" name="cep" placeholder="CEP" required>
+<input type="text" id="endereco" name="endereco" placeholder="Rua" required>
+<input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
+<input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+<input type="text" id="estado" name="estado" placeholder="Estado" required>
+
+<!-- botão e frete mantidos -->
+<div id="freteInfo" style="margin-top: 10px; font-weight: 500;"></div>
+<input type="hidden" name="frete_valor" id="frete_valor">
+
+      <div class="resumo-compra" style="margin-top: 20px;">
+        <p><strong>Subtotal:</strong> R$ {{ '%.2f'|format(subtotal)|replace('.', ',') }}</p>
+        <p><strong>Frete:</strong> <span id="valorFrete">-</span></p>
+        <p><strong>Total:</strong> <span id="valorTotalFinal">-</span></p>
+      </div>
+
+      <h2>Método de Pagamento</h2>
+      <select name="metodo_pagamento" id="metodo_pagamento" required>
+        <option value="cartao">Cartão de Crédito</option>
+        <option value="pix">Pix</option>
+      </select>
+
+      <div id="cartao-form">
+        <h2>Dados do Cartão</h2>
+        <div class="campo-cartao">
+          <input type="text" name="numero_cartao" placeholder="Número do Cartão">
+          <div class="bandeira-logo"></div>
+        </div>
+        <input type="text" name="nome_cartao" placeholder="Nome no Cartão">
+        <div class="pagamento-cartao-row">
+          <input type="text" name="validade" placeholder="Validade (MM/AA)">
+          <input type="text" name="cvv" placeholder="CVV">
+        </div>
+
+        <div class="parcelas-form" style="margin-top: 15px;">
+          <label for="parcelas"><strong>Parcelamento:</strong></label>
+          <select name="parcelas" id="parcelas">
+            {% for i in range(1, 7) %}
+              <option value="{{ i }}">{{ i }}x de R$ {{ ('%.2f' % (subtotal / i)).replace('.', ',') }} sem juros</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div id="pix-info" style="display: none; margin-top: 20px;">
+        <h2>Pagamento via Pix</h2>
+        <p>Escaneie o QR Code abaixo ou copie a chave Pix.</p>
+        <img src="{{ url_for('static', filename='assets/QRCODE.JPG') }}" alt="QR Code Pix" style="max-width: 200px;">
+        <p><strong>Chave Pix:</strong> (21)99535-2504</p>
+      </div>
+
+      <button type="submit" class="btn-finalizar" id="btnFinalizar">
+        <span id="btnTexto">Confirmar Pagamento</span>
+        <span id="btnLoader" style="display: none; margin-left: 8px;">⏳</span>
+      </button>
+    </form>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/frete.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/pagamento.js') }}"></script>
+
+  {% include 'rodape.html' %}
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- templates/admin_clientes.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Clientes Cadastrados - Admin | Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+  {% include 'menu_admin.html' %}
+
+  <div class="content">
+    <div class="card">
+      <h2>Clientes Cadastrados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>Endereço</th>
+              <th>Ações</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for cliente in clientes %}
+          <tr>
+            <td>{{ cliente.IdCliente }}</td>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.telefone }}</td>
+            <td>{{ cliente.endereco }}</td>
+              <td>
+  <a href="{{ url_for('admin_pedidos_cliente', id_cliente=cliente.IdCliente) }}" class="btn-ver">Ver Pedidos</a>
+</td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cailla - Moda Fitness</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Menu de navegação -->
+  <!-- Incluir o menu aqui -->
+  {% include 'menu.html' %}
+
+  <!-- Seção Hero - Imagem com a família -->
+  <section class="hero">
+    <img src="../static/assets/familia.jpg" alt="Família Cailla" />
+  </section>
+
+  <!-- Seção com 3 colunas -->
+  <!-- Seção com 3 colunas -->
+<section class="links-secao">
+  <div class="link-coluna">
+    <a href="{{ url_for('sobre') }}">
+      <div class="img-container">
+        <img src="../static/assets/nossa-historia.jpg" alt="Nossa História">
+        <h3>Nossa História</h3>
+      </div>
+    </a>
+  </div>
+  <div class="link-coluna">
+    <a href="{{ url_for('loja') }}">
+      <div class="img-container">
+        <img src="../static/assets/nossa-colecao.jpg" alt="Nossa Coleção">
+        <h3>Nossa Coleção</h3>
+      </div>
+    </a>
+  </div>
+  <div class="link-coluna">
+    <a href="{{ url_for('membros') }}">
+      <div class="img-container">
+        <img src="../static/assets/comunidade.jpg" alt="Comunidade Cailla">
+        <h3>Junte-se à Comunidade Cailla</h3>
+      </div>
+    </a>
+  </div>
+</section>
+
+{% include 'rodape.html' %}
+</body>
+</html>

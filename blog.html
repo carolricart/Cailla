@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog Cailla - Dicas de Nutrição e Treinos</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .blog-post {
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .snack-grao-bico {
+      background-image: url("../static/assets/bloggb.jpg");
+    }
+
+    .panqueca-banana {
+      background-image: url("../static/assets/panqueca-banana.jpg");
+    }
+
+    .pizza-psyllium {
+      background-image: url("../static/assets/pizza.jpg");
+    }
+
+    .receita-detalhes {
+      display: none;
+      background-color: #fff;
+      color: #333;
+      padding: 20px;
+      margin-top: 15px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-shadow: none;
+    }
+
+    .blog-post button.toggle-leia-mais {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      color: #FFD700;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 10px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    .comentarios-section {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  color: #333;
+}
+
+.comentarios-section h4 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #111;
+  font-weight: 600;
+}
+
+.comentarios-section textarea {
+  width: 100%;
+  min-height: 100px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  resize: vertical;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+.comentarios-section textarea:focus {
+  border-color: #8A1538;
+  outline: none;
+}
+
+.comentarios-section button {
+  background-color: #8A1538;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.comentarios-section button:hover {
+  background-color: #8A1538;
+}
+
+.comentarios-lista {
+  margin-top: 25px;
+}
+
+.comentario-item {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.comentario-item p {
+  margin: 5px 0;
+}
+
+.comentario-item .data {
+  font-size: 0.8rem;
+  color: #8A1538;
+}
+
+.login-requerido {
+  font-size: 1rem;
+  color: #8A1538;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  margin-top: 25px;
+}
+
+  </style>
+</head>
+<body>
+
+  {% include 'menu.html' %}
+  <div class="blog-fundo">
+    <main class="blog-container">
+      <section class="blog-hero">
+        <div class="blog-hero-overlay">
+          <div class="blog-hero-title">
+            <h1>Blog Cailla</h1>
+          </div>
+          <div class="blog-hero-subtitle">
+            <p>
+              Aqui na Cailla, a sua experiência vai além de encontrar roupas perfeitas para treinar com estilo e conforto.
+              Este espaço foi criado para te inspirar com dicas de treino, receitas gostosas e práticas para o dia a dia e
+              conteúdos que realmente transformam sua rotina. Porque para a gente, bem-estar é completo — corpo, mente e autoestima.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção de nutrição -->
+      <section class="blog-section">
+        <h2>🍎 Nutrição & Receitas</h2>
+
+        <div class="blog-post snack-grao-bico">
+          <h3>Snack de grão de bico crocante</h3>
+          <p>Uma opção deliciosa, saudável e rica em fibras para seus lanches...</p>
+          <button class="toggle-leia-mais" data-target="receita-grao-bico">Leia mais</button>
+          <div class="receita-detalhes" id="receita-grao-bico">
+            <p><strong>Tainá Borges Albuquerque</strong><br>Nutricionista | CRN 25105363</p>
+            <p><strong>Rendimento:</strong> 10 porções</p>
+            <ul>
+              <li>400g de grão de bico cru</li>
+              <li>5 colheres de sopa de azeite de oliva extravirgem</li>
+              <li>5 colheres de café de páprica em pó</li>
+              <li>5 colheres de chá de cominho em pó</li>
+              <li>Sal refinado a gosto</li>
+            </ul>
+            <ol>
+              <li>Deixe o grão-de-bico de molho por 12h.</li>
+              <li>Cozinhe na pressão por 5 minutos após pegar pressão.</li>
+              <li>Escorra, retire cascas soltas e grãos quebrados.</li>
+              <li>Misture com azeite, páprica, cominho e sal.</li>
+              <li>Asse a 210ºC por cerca de 40 minutos, mexendo a cada 15 min.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="blog-post panqueca-banana">
+          <h3>Panqueca de banana</h3>
+          <p>Simples, deliciosa e saudável: perfeita para o café da manhã ou lanche!</p>
+          <button class="toggle-leia-mais" data-target="receita-panqueca">Leia mais</button>
+          <div class="receita-detalhes" id="receita-panqueca">
+            <p><strong>Tainá Borges Albuquerque</strong><br>Nutricionista | CRN 25105363</p>
+            <ul>
+              <li>1 banana amassada</li>
+              <li>1 ovo</li>
+              <li>2 colheres de sopa de farelo de aveia (ou psyllium)</li>
+              <li>Canela a gosto</li>
+            </ul>
+            <p><strong>Toppings sugeridos:</strong> frutas picadas, fio de mel, geleia sem açúcar, calda de leite em pó, iogurte ou chocolate.</p>
+          </div>
+        </div>
+
+        <div class="blog-post pizza-psyllium">
+          <h3>Pizza saudável com psyllium</h3>
+          <p>Receita deliciosa e nutritiva com base de aveia, ovos e queijo!</p>
+          <button class="toggle-leia-mais" data-target="receita-pizza">Leia mais</button>
+          <div class="receita-detalhes" id="receita-pizza">
+            <p><strong>Tainá Borges Albuquerque</strong><br>Nutricionista | CRN 25105363</p>
+            <ul>
+              <li>45g de queijo mussarela</li>
+              <li>25g de farinha de aveia</li>
+              <li>10g de psyllium</li>
+              <li>2 ovos</li>
+              <li>30ml de água</li>
+              <li>Sal e pimenta a gosto</li>
+            </ul>
+            <p><strong>Recheio:</strong> 35g de frango desfiado + 15g de queijo mussarela</p>
+            <ol>
+              <li>Misture tudo com um fue, despeje em forma forrada.</li>
+              <li>Asse por 20 minutos. Recheie com molho, frango e queijo.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção de vídeos -->
+      <section class="blog-section">
+        <h2>💪 Treinos em Vídeo</h2>
+
+        <div class="video-post">
+          <h3>5 Exercícios para empinar o glúteo</h3>
+          <video width="100%" height="auto" controls>
+            <source src="{{ url_for('static', filename='videos/treinoblog.MOV') }}" type="video/mp4">
+          </video>
+        </div>
+
+        {% if session.get('usuario_id') %}
+        <div class="comentarios-section">
+          <h4>Comentários</h4>
+          <form action="/comentar_video" method="POST">
+            <textarea name="comentario" placeholder="Escreva seu comentário..." required></textarea>
+            <button type="submit">Publicar</button>
+          </form>
+
+          <div class="comentarios-lista">
+            {% for comentario in comentarios %}
+              <div class="comentario-item">
+                <p><strong>{{ comentario.nome_usuario }}</strong> disse:</p>
+                <p>{{ comentario.texto }}</p>
+                <p class="data">{{ comentario.data }}</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% else %}
+        <p class="login-requerido">Faça login para comentar e participar da comunidade 💬</p>
+        {% endif %}
+
+        <div class="video-post">
+          <h3>3 Exercícios para trincar o abdômen</h3>
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/SEU_ID_AQUI" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </section>
+    </main>
+
+    {% include 'rodape.html' %}
+  </div>
+
+  <script>
+    document.querySelectorAll('.toggle-leia-mais').forEach(button => {
+      button.addEventListener('click', function () {
+        const target = document.getElementById(this.dataset.target);
+        const isVisible = target.style.display === 'block';
+        target.style.display = isVisible ? 'none' : 'block';
+        this.textContent = isVisible ? 'Leia mais' : 'Mostrar menos';
+      });
+    });
+  </script>
+</body>
+</html>

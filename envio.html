@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Envio e Devoluções - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  {% include 'menu.html' %}
+
+  <main class="envio-container">
+    <h1>Envio e Devoluções</h1>
+    <section class="envio-section">
+
+      <h2>Prazos de Entrega</h2>
+      <p>O prazo de entrega é calculado automaticamente durante a finalização da compra, de acordo com o CEP informado e a modalidade de frete escolhida. Após a confirmação do pagamento, o pedido será processado em até 2 dias úteis.</p>
+
+      <h2>Modalidades de Envio</h2>
+      <ul>
+        <li><strong>Frete Padrão:</strong> Prazo estimado de 5 a 10 dias úteis.</li>
+        <li><strong>Frete Expresso:</strong> Prazo estimado de 2 a 4 dias úteis.</li>
+        <li><strong>Frete Grátis:</strong> Para compras acima de R$ 250,00 (válido para todo o Brasil).</li>
+      </ul>
+
+      <h2>Rastreamento do Pedido</h2>
+      <p>Você poderá acompanhar o status do seu pedido acessando a área <strong>"Meus Pedidos"</strong> em sua conta. Assim que o pedido for enviado, enviaremos por e-mail o código de rastreamento.</p>
+
+      <h2>Política de Trocas e Devoluções</h2>
+      <p>Você pode solicitar a troca ou devolução de um produto em até <strong>7 dias corridos</strong> após o recebimento. Para isso, é necessário que:</p>
+      <ul>
+        <li>O produto esteja sem uso e com a etiqueta afixada;</li>
+        <li>Seja apresentado o comprovante de compra;</li>
+        <li>O item esteja na embalagem original.</li>
+      </ul>
+
+      <h2>Como Solicitar</h2>
+      <p>Para iniciar o processo, entre em contato com nosso atendimento pelo e-mail <strong>contato@cailla.com.br</strong> ou pela <a href="/contato">página de contato</a>, informando o número do pedido e o motivo da troca ou devolução.</p>
+
+      <h2>Reembolsos</h2>
+      <p>Após a análise e aprovação da devolução, o reembolso será processado de acordo com a forma de pagamento original:</p>
+      <ul>
+        <li><strong>Cartão de crédito:</strong> o estorno pode ocorrer em até duas faturas;</li>
+        <li><strong>Pix ou boleto:</strong> o valor será devolvido em até 5 dias úteis.</li>
+      </ul>
+    </section>
+  </main>
+
+  {% include 'rodape.html' %}
+</body>
+</html>

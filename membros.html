@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Membros - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+ <!-- Incluir o menu aqui -->
+  {% include 'menu.html' %}
+  <!-- Conteúdo principal -->
+  <main class="membros-container">
+    <div class="membros-imagem">
+      <img src="../static/assets/hawaii.jpg" alt="Comunidade Cailla" />
+    </div>
+
+    <section class="membros-beneficios">
+      <h1>Vantagens Exclusivas para Membros</h1>
+      <div class="beneficios-grid">
+        <div class="beneficio-card">
+          <h3>Descontos Exclusivos</h3>
+          <p>Receba cupons de até 30% para novos lançamentos e coleções especiais.</p>
+        </div>
+        <div class="beneficio-card">
+          <h3>Primeiro Acesso</h3>
+          <p>Tenha acesso antecipado às nossas coleções antes do público geral.</p>
+        </div>
+        <div class="beneficio-card">
+          <h3>Conteúdos Especiais</h3>
+          <p>Aulas, dicas de treino, nutrição e muito mais, direto no seu e-mail.</p>
+        </div>
+        <div class="beneficio-card">
+          <h3>Participação em Eventos</h3>
+          <p>Seja convidada para eventos, lançamentos e encontros com a comunidade.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+    <section class="cadastro-membro">
+      <h2>Faça parte da Comunidade Cailla</h2>
+      <p>Cadastre-se e receba novidades, conteúdos exclusivos e benefícios especiais para membros.</p>
+      {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash-msg">{{ messages[0] }}</div>
+  {% endif %}
+{% endwith %}
+      <form action="{{ url_for('cadastrar_membro') }}" method="post">
+        <input type="text" name="nome" placeholder="Seu nome" required>
+        <input type="email" name="email" placeholder="Seu e-mail" required>
+        <button type="submit">Cadastrar</button>
+      </form>
+    </section>
+{% include 'rodape.html' %}
+</body>
+</html>

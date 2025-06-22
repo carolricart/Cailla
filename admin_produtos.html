@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos Cadastrados - Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+{% include 'menu_admin.html' %}
+  <div class="content">
+    <div class="card">
+      <h2>Produtos Cadastrados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Imagem</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for produto in produtos %}
+          <tr>
+            <td>{{ produto.nome }}</td>
+            <td>R$ {{ produto.preco }}</td>
+            <td><img src="../static/assets/{{ produto.imagem }}" alt="Imagem" class="product-img-preview"></td>
+            <td>
+              <a href="{{ url_for('editar_produto', produto_id=produto.IdProduto) }}" class="submit">Editar</a>
+              <form method="POST" action="{{ url_for('excluir_produto', produto_id=produto.IdProduto) }}" style="display:inline;">
+                <button type="submit" class="submit" onclick="return confirm('Deseja excluir?')">Excluir</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

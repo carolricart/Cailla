@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Meus Pedidos - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+</head>
+<body>
+
+  {% include 'menu.html' %}
+
+  <main class="pedido-container">
+    <h1>Meus Pedidos</h1>
+
+    {% if pedidos %}
+      {% for pedido in pedidos %}
+        <div class="card-pedido">
+          <div class="info-pedido">
+            <p><strong>Pedido:</strong> {{ pedido.IdPedido }}</p>
+            <p><strong>Data:</strong> {{ pedido.data.strftime('%d/%m/%Y') }}</p>
+            <p><strong>Status:</strong> {{ pedido.status }}</p>
+            <p><strong>Total:</strong> R$ {{ pedido.valorTotal | round(2) | string | replace('.', ',') }}</p>
+          </div>
+
+          <div class="itens-pedido">
+            {% for item in pedido.itens %}
+              <div class="item">
+                <img src="{{ url_for('static', filename='assets/' ~ item.imagem) }}" alt="{{ item.nome }}">
+                <div class="detalhes-item">
+  <p>{{ item.quantidade }}x {{ item.nome }}</p>
+  <p>Tamanho: {{ item.get('tamanho', 'M') }}</p> <!-- 👈 Aqui -->
+  <p>Subtotal: R$ {{ item.subtotal | round(2) | string | replace('.', ',') }}</p>
+</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align:center;">Você ainda não fez nenhum pedido.</p>
+    {% endif %}
+  </main>
+
+  {% include 'rodape.html' %}
+</body>
+</html>

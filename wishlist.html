@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meus Desejos - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  {% include 'menu.html' %}
+
+  <main class="wishlist-container">
+    <h1 class="wishlist-title">Meus Favoritos 💖</h1>
+
+    {% if favoritos %}
+      {% for produto in favoritos %}
+        <div class="wishlist-item">
+          <img src="../static/assets/{{ produto.imagem }}" alt="{{ produto.nome }}">
+          <div class="wishlist-info">
+            <h3>{{ produto.nome }}</h3>
+            <p>R$ {{ produto.preco | round(2) | string | replace('.', ',') }}</p>
+          </div>
+
+          <div class="wishlist-actions">
+            <!-- Formulário de adicionar ao carrinho -->
+            <form action="{{ url_for('add_to_cart_form') }}" method="POST">
+  <input type="hidden" name="id" value="{{ produto.IdProduto }}">
+  <input type="hidden" name="nome" value="{{ produto.nome }}">
+  <input type="hidden" name="preco" value="{{ produto.preco }}">
+  <input type="hidden" name="imagem" value="{{ produto.imagem }}">
+
+  <select name="tamanho" required>
+    <option value="">Tamanho</option>
+    <option value="P">P</option>
+    <option value="M">M</option>
+    <option value="G">G</option>
+    <option value="GG">GG</option>
+  </select>
+
+  <button type="submit" class="btn-add-carrinho">Adicionar ao Carrinho</button>
+</form>
+
+
+            <!-- Formulário de remoção da wishlist -->
+            <form action="{{ url_for('remover_wishlist', id_produto=produto.IdProduto) }}" method="POST">
+              <button type="submit" class="btn-add-carrinho" style="background-color: #999;">Remover</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align: center;">Você ainda não adicionou nenhum produto à sua lista de desejos.</p>
+    {% endif %}
+  </main>
+
+  {% include 'rodape.html' %}
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pedido Confirmado - Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght=400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+    }
+
+    .pedido-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .check-success {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background-color: #4caf50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: popIn 0.6s ease;
+    }
+
+    .check-success svg {
+      width: 40px;
+      height: 40px;
+      stroke: #fff;
+      stroke-width: 4;
+      fill: none;
+    }
+
+    .resumo-pedido {
+      margin-top: 30px;
+      text-align: left;
+      background-color: #fafafa;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .resumo-pedido h2, .resumo-pedido h3 {
+      color: #2a2a2a;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 15px;
+    }
+
+    .resumo-pedido ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 15px 0;
+    }
+
+    .resumo-pedido li {
+      margin-bottom: 6px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 4px;
+    }
+
+    .btn-finalizar {
+      display: inline-block;
+      margin-top: 30px;
+      background-color: #000;
+      color: #fff;
+      padding: 12px 28px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .btn-finalizar:hover {
+      background-color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  {% include 'menu.html' %}
+
+  <main class="pedido-container">
+    <div class="check-success">
+      <svg viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </div>
+
+    <h1>Pedido Confirmado!</h1>
+    <p>Obrigada por comprar com a Cailla 💕</p>
+    <p>Você receberá um e-mail com os detalhes da sua compra.</p>
+
+    <div class="resumo-pedido">
+      <h2>Resumo do Pedido</h2>
+      <p><strong>Nº do Pedido:</strong> #{{ pedido.IdPedido }}</p>
+      <p><strong>Data:</strong> {{ pedido.data.strftime('%d/%m/%Y') }}</p>
+      <p><strong>Status:</strong> {{ pedido.status }}</p>
+
+      <h3>Produtos</h3>
+      <ul>
+        {% for item in itens %}
+          <li>{{ item.quantidade }}x {{ item.nome }} — R$ {{ '%.2f'|format(item.subtotal)|replace('.', ',') }}</li>
+        {% endfor %}
+      </ul>
+
+      {% set total = pedido.valorTotal | float %}
+      {% set frete = (pedido.frete or 0.00) | float %}
+      {% set subtotal = total - frete %}
+
+      <p><strong>Subtotal:</strong> R$ {{ '%.2f'|format(subtotal)|replace('.', ',') }}</p>
+      <p><strong>Frete:</strong> R$ {{ '%.2f'|format(frete)|replace('.', ',') }}</p>
+      <p><strong>Total com frete:</strong> R$ {{ '%.2f'|format(total)|replace('.', ',') }}</p>
+
+      <p><strong>Método de Pagamento:</strong> {{ pagamento.metodoDePagamento | capitalize }}</p>
+
+      {% if pagamento.metodoDePagamento == 'cartao' and pagamento.parcelas > 1 %}
+        <p><strong>Parcelamento:</strong> {{ pagamento.parcelas }}x de R$ {{ '%.2f'|format(total / pagamento.parcelas)|replace('.', ',') }} sem juros</p>
+      {% endif %}
+    </div>
+
+    <a href="{{ url_for('home') }}" class="btn-finalizar">Voltar à Home</a>
+  </main>
+
+  {% include 'rodape.html' %}
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório por Estado - Cailla</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+  {% include 'menu_admin.html' %}
+
+  <div class="content">
+    <h2>Estados com Mais Vendas</h2>
+    <canvas id="graficoEstado" width="600" height="400"></canvas>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('graficoEstado').getContext('2d');
+    const grafico = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: {{ estados|tojson }},
+        datasets: [{
+          label: 'Total de Pedidos',
+          data: {{ totais|tojson }},
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

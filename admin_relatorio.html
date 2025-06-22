@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios de Vendas - Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  {% include 'menu_admin.html' %}
+
+  <div class="content">
+    <div class="card">
+      <h2>Produtos Mais Vendidos</h2>
+      <canvas id="produtosChart"></canvas>
+    </div>
+
+    <div class="card">
+      <h2>Tamanhos Mais Vendidos</h2>
+      <canvas id="tamanhosChart"></canvas>
+    </div>
+
+    <div class="card">
+      <h2>Receita por Mês</h2>
+      <canvas id="receitaMesChart"></canvas>
+    </div>
+
+    <div class="card">
+      <h2>Top Clientes por Valor de Compra</h2>
+      <canvas id="clientesChart"></canvas>
+    </div>
+
+    <div class="card">
+  <h2>Vendas por Estado</h2>
+  <canvas id="estadosChart"></canvas>
+</div>
+
+  </div>
+
+  <script>
+    const produtosData = {
+      labels: {{ produtos_vendidos | map(attribute='nome') | list | tojson }},
+      datasets: [{
+        label: 'Quantidade Vendida',
+        data: {{ produtos_vendidos | map(attribute='total_vendido') | list | tojson }},
+        backgroundColor: 'rgba(138, 21, 56, 0.7)',
+        borderRadius: 8
+      }]
+    };
+
+    new Chart(document.getElementById('produtosChart'), {
+      type: 'bar',
+      data: produtosData,
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    const tamanhosData = {
+      labels: {{ tamanhos_vendidos | map(attribute='tamanho') | list | tojson }},
+      datasets: [{
+        label: 'Vendas por Tamanho',
+        data: {{ tamanhos_vendidos | map(attribute='total') | list | tojson }},
+        backgroundColor: ['#8A1538', '#FF6384', '#FF9F40', '#FFD740'],
+        borderWidth: 1
+      }]
+    };
+
+    new Chart(document.getElementById('tamanhosChart'), {
+      type: 'pie',
+      data: tamanhosData,
+      options: {
+        responsive: true
+      }
+    });
+
+    const receitaMesData = {
+      labels: {{ receita_mensal | map(attribute='mes') | list | tojson }},
+      datasets: [{
+        label: 'Receita (R$)',
+        data: {{ receita_mensal | map(attribute='receita') | list | tojson }},
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderRadius: 8
+      }]
+    };
+
+    new Chart(document.getElementById('receitaMesChart'), {
+      type: 'bar',
+      data: receitaMesData,
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    const clientesTopData = {
+      labels: {{ clientes_top | map(attribute='nome') | list | tojson }},
+      datasets: [{
+        label: 'Total Gasto (R$)',
+        data: {{ clientes_top | map(attribute='total_gasto') | list | tojson }},
+        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+        borderRadius: 8
+      }]
+    };
+
+    new Chart(document.getElementById('clientesChart'), {
+      type: 'bar',
+      data: clientesTopData,
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+        const estadosData = {
+    labels: {{ estados_vendas | map(attribute='estado') | list | tojson }},
+    datasets: [{
+      label: 'Vendas por Estado',
+      data: {{ estados_vendas | map(attribute='total_vendas') | list | tojson }},
+      backgroundColor: 'rgba(138, 21, 56, 0.6)',
+      borderRadius: 8
+    }]
+  };
+
+  new Chart(document.getElementById('estadosChart'), {
+    type: 'bar',
+    data: estadosData,
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  </script>
+</body>
+</html>

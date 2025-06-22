@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Estoque - Admin | Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+  {% include 'menu_admin.html' %}
+  <div class="content">
+    <div class="card">
+      <h2>Controle de Estoque</h2>
+
+      {% if estoque %}
+        <table class="tabela-admin">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Tamanho</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in estoque %}
+            <tr>
+              <td>{{ item.nome_produto }}</td>
+              <td>{{ item.tamanho }}</td>
+              <td class="{% if item.quantidade <= 5 %}estoque-baixo{% endif %}">
+  {{ item.quantidade }}
+  {% if item.quantidade <= 5 %}
+    <span class="alerta-estoque" title="Estoque baixo!">⚠️</span>
+  {% endif %}
+</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>Nenhuma informação de estoque disponível.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

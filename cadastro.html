@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+</head>
+
+<body>
+<body>
+
+  {% include 'menu.html' %}
+
+  <!-- Mensagem de erro -->
+  {% if error %}
+    <div class="mensagem-erro" id="mensagemErro">
+      <span class="fechar" onclick="fecharMensagem()">&times;</span>
+      {{ error }}
+    </div>
+  {% endif %}
+
+  <section class="cadastro-background">
+    <div class="cadastro-overlay">
+      <div class="cadastro-conteudo">
+        <h1>Crie sua Conta</h1>
+        <p>Junte-se à comunidade Cailla e aproveite todos os benefícios.</p>
+        <br>
+        <form id="cadastroForm" action="/cadastro_cliente" method="POST">
+          <input type="text" id="cpf" name="cpf" placeholder="CPF" required><br>
+          <input type="text" id="nome" name="nome" placeholder="Nome completo" required><br>
+          <input type="email" id="email" name="email" placeholder="E-mail" required><br>
+          <input type="password" id="senha" name="senha" placeholder="Senha" required><br>
+          <input type="password" id="confirmar_senha" name="confirmar_senha" placeholder="Confirmar senha" required><br>
+          <input type="text" id="endereco" name="endereco" placeholder="Endereço" required><br>
+          <input type="text" id="telefone" name="telefone" placeholder="Telefone" required><br>
+          <button type="submit">Cadastrar</button>
+        </form>
+
+        <p class="login-link">Já tem uma conta? <a href="/login">Entrar</a></p>
+      </div>
+    </div>
+  </section>
+
+  {% include 'rodape.html' %}
+  <script src="../static/js/script.js"></script>
+
+  <!-- CPF: Máscara + Validação -->
+  <script>
+  function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, '');
+
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+      soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+    let resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.charAt(9))) return false;
+
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+      soma += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+
+    return resto === parseInt(cpf.charAt(10));
+  }
+
+  document.getElementById("cadastroForm").addEventListener("submit", function (e) {
+    const cpf = document.getElementById("cpf").value;
+    if (!validarCPF(cpf)) {
+      e.preventDefault();
+      alert("Formato de CPF inválido. Verifique os números digitados.");
+    }
+    // Caso o CPF tenha formato válido, o backend fará a verificação de duplicidade
+  });
+
+  const cpfInput = document.getElementById("cpf");
+  cpfInput.addEventListener("input", function () {
+    let value = this.value.replace(/\D/g, "").slice(0, 11);
+    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    this.value = value;
+  });
+</script>
+<script>
+  function fecharMensagem() {
+    const msg = document.getElementById('mensagemErro');
+    if (msg) {
+      msg.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>

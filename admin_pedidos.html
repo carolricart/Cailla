@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pedidos - Painel Admin Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+{% include 'menu_admin.html' %}
+
+  <div class="content">
+    <h2>Pedidos Recebidos</h2>
+
+    {% for pedido in pedidos %}
+      <div class="card">
+        <h3>Pedido #{{ pedido.IdPedido }} - {{ pedido.data.strftime('%d/%m/%Y') }}</h3>
+        <form action="/admin/atualizar_status/{{ pedido.IdPedido }}" method="POST" style="margin-top: 10px;">
+  <label for="status"><strong>Status:</strong></label>
+  <select name="status" id="status">
+      <option value="Confirmado" {% if pedido.status == 'Confirmado' %}selected{% endif %}>Confirmado</option>
+    <option value="Em andamento" {% if pedido.status == 'Em andamento' %}selected{% endif %}>Em andamento</option>
+    <option value="Entregue" {% if pedido.status == 'Entregue' %}selected{% endif %}>Entregue</option>
+  </select>
+  <button type="submit" style="margin-left: 10px;">Atualizar</button>
+</form>
+
+        <p><strong>Cliente:</strong> {{ pedido.cliente.nome }} | {{ pedido.cliente.email }}</p>
+        <p><strong>Endereço de Entrega:</strong>
+          {{ pedido.entrega.endereco }},
+          {{ pedido.entrega.bairro }},
+          {{ pedido.entrega.cidade }} - {{ pedido.entrega.estado }} | CEP: {{ pedido.entrega.cep }}
+        </p>
+        <p><strong>Frete:</strong> R$ {{ '%.2f'|format(pedido.frete) }}</p>
+        <p><strong>Total:</strong> R$ {{ '%.2f'|format(pedido.valorTotal) }}</p>
+        <p><strong>Método de Pagamento:</strong> {{ pedido.metodo }}</p>
+{% if pedido.metodo == 'cartao' and pedido.parcelas > 1 %}
+  <p><strong>Parcelamento:</strong> {{ pedido.parcelas }}x de R$ {{ (pedido.valorTotal / pedido.parcelas) | round(2) | string | replace('.', ',') }} sem juros</p>
+{% endif %}
+
+
+        <h4>Produtos:</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Imagem</th>
+              <th>Produto</th>
+              <th>Tamanho</th>
+              <th>Qtd</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in pedido.itens %}
+              <tr>
+                <td><img src="{{ url_for('static', filename='assets/' ~ item.imagem) }}" class="product-img-preview"></td>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.tamanho }}</td>
+                <td>{{ item.quantidade }}</td>
+                <td>R$ {{ '%.2f'|format(item.subtotal) }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endfor %}
+
+  </div>
+
+</body>
+</html>

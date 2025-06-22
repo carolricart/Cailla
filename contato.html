@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contato - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Incluir o menu aqui -->
+  {% include 'menu.html' %}
+
+  <main class="contato-background">
+    <div class="contato-overlay">
+      <section class="contato-conteudo">
+        <h1>Fale Conosco</h1>
+        <p>Tem alguma dúvida, sugestão ou deseja colaborar com a Cailla? Preencha o formulário abaixo ou entre em contato pelas redes sociais.</p>
+        <form action="{{ url_for('salvar_contato') }}" method="post">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+  
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+  
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem..." required></textarea>
+  
+          <button type="submit">Enviar Mensagem</button>
+        </form>
+      </section>
+    </div>
+  </main>
+{% include 'rodape.html' %}
+</body>
+</html>

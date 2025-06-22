@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minha Conta - Cailla</title>
+  <link rel="stylesheet" href="../static/css/conta.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="conta-body">
+<div class="wrapper">
+  {% include 'menu.html' %}
+  <main class="conta-container">
+    <h1>Minha Conta</h1>
+
+    <form action="/atualizar_conta" method="POST" id="form-edicao">
+      <section class="perfil-conta">
+        <h2>Perfil</h2>
+
+        <div class="info-item">
+          <span class="label">E-mail:</span>
+          <span class="valor" id="email">{{ cliente.email }}</span>
+          <button class="editar-btn" title="Editar E-mail" type="button" onclick="editar('email')">✏️</button>
+          <input type="email" id="input-email" class="campo-edicao" value="{{ cliente.email }}" style="display:none;">
+        </div>
+
+        <div class="info-item">
+          <span class="label">Senha:</span>
+          <span class="valor" id="senha">********</span>
+          <button class="editar-btn" title="Editar Senha" type="button" onclick="editar('senha')">✏️</button>
+          <input type="password" id="input-senha" class="campo-edicao" placeholder="Nova senha" style="display:none;">
+        </div>
+
+        <div class="info-item">
+          <span class="label">Telefone:</span>
+          <span class="valor" id="telefone">{{ cliente.telefone }}</span>
+          <button class="editar-btn" title="Editar Telefone" type="button" onclick="editar('telefone')">✏️</button>
+          <input type="tel" id="input-telefone" class="campo-edicao" value="{{ cliente.telefone }}" style="display:none;">
+        </div>
+
+        <div class="info-item">
+          <span class="label">Endereço:</span>
+          <span class="valor" id="endereco">{{ cliente.endereco }}</span>
+          <button class="editar-btn" title="Editar Endereço" type="button" onclick="editar('endereco')">✏️</button>
+          <input type="text" id="input-endereco" class="campo-edicao" value="{{ cliente.endereco }}" style="display:none;">
+        </div>
+
+        <!-- Campos ocultos do form -->
+        <input type="hidden" name="email" id="form-email">
+        <input type="hidden" name="senha" id="form-senha">
+        <input type="hidden" name="telefone" id="form-telefone">
+        <input type="hidden" name="endereco" id="form-endereco">
+
+        <button class="btn-salvar" id="salvar" type="button" style="display:none;" onclick="salvarEdicao()">Salvar Alterações</button>
+      </section>
+    </form>
+    <a href="{{ url_for('meus_pedidos') }}" class="btn-pedidos">Ver Meus Pedidos</a>
+  </main>
+  </div>
+  <script src="../static/js/conta.js"></script>
+  {% include 'rodape.html' %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!-- templates/menu_admin.html -->
+<div class="menu-lateral">
+  <div class="logo">Cailla</div>
+  <a href="{{ url_for('admin_produtos') }}">Produtos Cadastrados</a>
+  <a href="{{ url_for('admin_adicionar') }}">Adicionar Produto</a>
+  <a href="{{ url_for('admin_relatorio') }}">Relatório de Vendas</a>
+  <a href="{{ url_for('admin_pedidos') }}">Pedidos</a>
+  <a href="{{ url_for('admin_clientes') }}">Clientes Cadastrados</a> <!-- NOVO -->
+  <a href="{{ url_for('admin_estoque') }}">Controle de Estoque</a>
+  <a href="{{ url_for('admin_contatos') }}">Contatos Recebidos</a>
+  <a href="{{ url_for('admin_avaliacoes') }}">Avaliações</a>
+
+
+  <a href="{{ url_for('admin_logout') }}">Sair</a>
+</div>

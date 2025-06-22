@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ produto['nome'] }} - Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/produto.css') }}">
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-message">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% include 'menu.html' %}
+
+  <div class="wrapper">
+    <div class="produto-container">
+      <div class="produto-imagem">
+        <img id="imagemPrincipal" src="{{ url_for('static', filename='assets/' + produto['imagem']) }}" alt="{{ produto['nome'] }}">
+
+        <div class="miniaturas">
+          <img src="{{ url_for('static', filename='assets/' + produto['imagem']) }}" onclick="trocarImagem(this.src)">
+          {% for img in imagens_extras %}
+            <img src="{{ url_for('static', filename='assets/' + img['caminho']) }}" onclick="trocarImagem(this.src)">
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="produto-info">
+        <h1>{{ produto['nome'] }}</h1>
+        <p class="produto-preco">R$ {{ produto['preco'] }}</p>
+        <p class="produto-descricao">{{ produto['descricao'] }}</p>
+
+        <div class="produto-form">
+          <div class="selecionar-tamanho">
+            <label>Escolha o tamanho:</label>
+            <div class="tamanhos-opcoes">
+              <input type="radio" id="tam-p" name="tamanho" value="P">
+              <label for="tam-p">P</label>
+
+              <input type="radio" id="tam-m" name="tamanho" value="M">
+              <label for="tam-m">M</label>
+
+              <input type="radio" id="tam-g" name="tamanho" value="G">
+              <label for="tam-g">G</label>
+
+              <input type="radio" id="tam-gg" name="tamanho" value="GG">
+              <label for="tam-gg">GG</label>
+            </div>
+          </div>
+          <button class="btn-add-carrinho" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="tabela-medidas">
+          <button class="toggle-medidas" onclick="toggleTabela()">Ver tabela de medidas</button>
+          <div id="tabelaMedidas" style="display: none;">
+            <table>
+              <tr><th>Tamanho</th><th>Busto</th><th>Cintura</th><th>Quadril</th></tr>
+              <tr><td>P</td><td>80-86 cm</td><td>60-66 cm</td><td>86-92 cm</td></tr>
+              <tr><td>M</td><td>86-92 cm</td><td>66-72 cm</td><td>92-98 cm</td></tr>
+              <tr><td>G</td><td>92-98 cm</td><td>72-78 cm</td><td>98-104 cm</td></tr>
+              <tr><td>GG</td><td>98-104 cm</td><td>78-84 cm</td><td>104-110 cm</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- Acordeão (estilo Wix) -->
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              <span>DETALHES DO PRODUTO</span>
+              <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>{{ produto['descricao'] }}</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              <span>POLÍTICA DE DEVOLUÇÃO E REEMBOLSO</span>
+              <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Você pode solicitar devolução em até 7 dias após o recebimento. O produto deve estar sem uso e com etiquetas.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn" onclick="toggleAccordion(this)">
+              <span>INFORMAÇÕES DE ENVIO</span>
+              <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Entregamos para todo o Brasil via Correios e transportadoras parceiras. Prazo estimado: 5-10 dias úteis.</p>
+            </div>
+          </div>
+        </div>
+      </div> <!-- fecha .produto-info -->
+    </div> <!-- fecha .produto-container -->
+
+    <div class="avaliacoes-container">
+      <h2>Avaliações</h2>
+
+      {% if session.usuario_id %}
+      <form action="{{ url_for('produto', id=produto['IdProduto']) }}" method="POST" class="avaliacao-form">
+        <label for="nota">Nota:</label>
+        <select name="nota" id="nota" required>
+          <option value="">Selecione</option>
+          <option value="5">5 - Excelente</option>
+          <option value="4">4 - Muito Bom</option>
+          <option value="3">3 - Bom</option>
+          <option value="2">2 - Regular</option>
+          <option value="1">1 - Ruim</option>
+        </select>
+
+        <label for="comentario">Comentário:</label>
+        <textarea name="comentario" id="comentario" rows="3" placeholder="Escreva sua opinião..." required></textarea>
+
+        <button type="submit" class="btn-enviar-avaliacao">Enviar Avaliação</button>
+      </form>
+      {% else %}
+        <p>Faça login para deixar uma avaliação.</p>
+      {% endif %}
+
+      {% for avaliacao in avaliacoes %}
+        <div class="avaliacao-item">
+          <strong>{{ avaliacao['nome'] }}</strong> — <small>{{ avaliacao['data'] }}</small><br>
+          <span>⭐ {{ avaliacao['nota'] }}/5</span>
+          <p>"{{ avaliacao['comentario'] }}"</p>
+        </div>
+      {% else %}
+        <p>Ainda não há avaliações para este produto.</p>
+      {% endfor %}
+    </div>
+  </div> <!-- fecha .wrapper -->
+
+  {% include 'rodape.html' %}
+
+  <script>
+    function toggleTabela() {
+      const tabela = document.getElementById("tabelaMedidas");
+      tabela.style.display = tabela.style.display === "none" ? "block" : "none";
+    }
+
+    function trocarImagem(src) {
+      document.getElementById("imagemPrincipal").src = src;
+    }
+
+    function adicionarAoCarrinho() {
+      const tamanhoSelecionado = document.querySelector('input[name="tamanho"]:checked');
+      if (!tamanhoSelecionado) {
+        alert('Selecione um tamanho');
+        return;
+      }
+      const tamanho = tamanhoSelecionado.value;
+
+      fetch('/add_to_cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: {{ produto['IdProduto'] }},
+          nome: {{ produto['nome']|tojson }},
+          preco: {{ produto['preco'] }},
+          imagem: {{ produto['imagem']|tojson }},
+          tamanho: tamanho
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.sucesso) {
+          const badge = document.getElementById('cart-count');
+          if (badge) {
+            badge.textContent = data.total_itens;
+            badge.style.display = data.total_itens > 0 ? 'inline-block' : 'none';
+          }
+        } else {
+          alert('Erro ao adicionar ao carrinho.');
+        }
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+      });
+    }
+
+    function toggleAccordion(button) {
+      const content = button.nextElementSibling;
+      const icon = button.querySelector('.icon');
+      const isOpen = content.style.display === "block";
+
+      document.querySelectorAll('.accordion-content').forEach(c => c.style.display = "none");
+      document.querySelectorAll('.accordion-btn .icon').forEach(i => i.textContent = "+");
+
+      if (!isOpen) {
+        content.style.display = "block";
+        icon.textContent = "–";
+      }
+    }
+  </script>
+</body>
+</html>

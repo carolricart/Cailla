@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrinho - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+</head>
+<body>
+
+  {% include 'menu.html' %}
+
+  <main class="carrinho-container">
+    <h1>Seu Carrinho</h1>
+    <p class="carrinho-descricao">Revise seus itens antes de finalizar a compra.</p>
+
+    <div class="carrinho-itens" id="carrinho-itens">
+      {% if cart %}
+        {% for item in cart %}
+          <div class="carrinho-item">
+            <img src="../static/assets/{{ item['imagem'] }}" alt="{{ item['nome'] }}">
+            <div><strong>{{ item['nome'] }}</strong></div>
+            {% if item['tamanho'] %}
+              <div><strong>Tamanho:</strong> {{ item['tamanho'] }}</div>
+            {% endif %}
+            <div>R$ {{ item['preco'] | round(2) | string | replace('.', ',') }}</div>
+            <div>
+              Quantidade:
+              <input type="number"
+                     class="quantidade-input"
+                     name="quantity"
+                     value="{{ item['quantidade'] }}"
+                     min="1"
+                     data-id="{{ item['id'] }}"
+                     data-tamanho="{{ item['tamanho'] }}"
+                     required>
+              <a href="{{ url_for('remove_from_cart', produto_id=item['id'], tamanho=item['tamanho']) }}">Remover</a>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="carrinho-vazio">
+          <img src="../static/assets/familia.jpg" alt="Carrinho vazio">
+          <p class="mensagem-vazio">Seu carrinho está vazio.</p>
+          <a href="{{ url_for('loja') }}" class="btn-adicionar-itens">Adicionar Itens</a>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if cart %}
+      <div class="carrinho-finalizacao">
+        <div class="carrinho-total">
+          <p>Total: <strong>R$ <span id="totalCarrinho">{{ total_cart | round(2) | string | replace('.', ',') }}</span></strong></p><br><br>
+          <a href="{{ url_for('finalizar_compra') }}" class="botao-finalizar">Finalizar Compra</a>
+        </div>
+      </div>
+    {% endif %}
+  </main>
+
+  <script src="../static/js/carrinho.js"></script>
+</body>
+</html>

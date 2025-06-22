@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Produto - Cailla</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+{% include 'menu_admin.html' %}
+  <div class="content">
+    <div class="card">
+      <h2>Editar Produto</h2>
+
+      <img src="{{ url_for('static', filename='assets/' + produto.imagem) }}" alt="Imagem Atual" class="edit-img-preview">
+
+
+      <form method="POST" action="/admin/editar/{{ produto.IdProduto }}" enctype="multipart/form-data">
+  <input type="text" name="nome" value="{{ produto.nome }}" required>
+  <textarea name="descricao" required>{{ produto.descricao }}</textarea>
+  <input type="number" step="0.01" name="preco" value="{{ produto.preco }}" required>
+
+  <!-- Campo para nova imagem principal -->
+  <label>Nova imagem principal (opcional):</label>
+  <input type="file" name="nova_imagem" accept="image/*">
+  <small>Se não selecionar nada, a imagem atual será mantida.</small>
+
+  <input type="hidden" name="imagem_atual" value="{{ produto.imagem }}">
+
+  <!-- Campo para adicionar novas imagens extras -->
+  <label>Adicionar novas imagens extras (até 4):</label>
+  <input type="file" name="imagens_extras" accept="image/*" multiple>
+  <small>Imagens antigas serão mantidas.</small>
+
+  <div class="estoque-fields">
+    <div><label>P:</label><input type="number" name="estoque_p" value="{{ produto.estoques.get('P', 0) }}" min="0"></div>
+    <div><label>M:</label><input type="number" name="estoque_m" value="{{ produto.estoques.get('M', 0) }}" min="0"></div>
+    <div><label>G:</label><input type="number" name="estoque_g" value="{{ produto.estoques.get('G', 0) }}" min="0"></div>
+    <div><label>GG:</label><input type="number" name="estoque_gg" value="{{ produto.estoques.get('GG', 0) }}" min="0"></div>
+  </div>
+
+  <button type="submit" class="submit">Salvar</button>
+  <a href="{{ url_for('admin_produtos') }}" class="submit cancel-btn">Cancelar</a>
+</form>
+
+    </div>
+  </div>
+</body>
+</html>

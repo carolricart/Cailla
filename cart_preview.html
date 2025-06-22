@@ -1,0 +1,10 @@
+{% for item in cart %}
+  <div class="cart-item-preview">
+    <img src="{{ url_for('static', filename='assets/' + item.imagem) }}" alt="{{ item.nome }}">
+    <div>
+      <p class="nome">{{ item.nome }}</p>
+      <p>{{ item.quantidade }}x R$ {{ item.preco | round(2) | string | replace('.', ',') }}</p>
+    </div>
+  </div>
+{% endfor %}
+<a href="{{ url_for('show_cart') }}" class="ver-carrinho">Ver carrinho</a>

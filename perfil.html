@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Cailla</title>
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- Menu de navegação -->
+    <header>
+      {% include 'menu.html' %}
+    </header>
+
+    <!-- Área de login -->
+    <div class="login-background">
+      <div class="login-overlay">
+        <div class="login-card">
+          <h1>Entrar na sua conta</h1>
+
+          <!-- Exibir erro se houver -->
+          {% if error %}
+            <div style="color: red; text-align: center; margin-bottom: 20px;">
+              <strong>{{ error }}</strong>
+            </div>
+          {% endif %}
+
+          <form action="{{ url_for('login') }}" method="post">
+          <input type="hidden" name="next" value="{{ next or '' }}">
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+          </form>
+
+          <p class="login-link">Ainda não tem conta? <a href="/cadastro">Cadastre-se</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé -->
+    {% include 'rodape.html' %}
+
+  </div>
+</body>
+</html>

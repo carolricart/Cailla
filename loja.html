@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cailla - Loja</title>
+  <link rel="stylesheet" href="../static/css/loja.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="pagina-loja">
+{% include 'menu.html' %}
+  <div class="wrapper">
+
+
+    <!-- Seção de Introdução da Loja -->
+    <div class="container-loja">
+      <div class="text-section">
+        <h1>Nossos Produtos</h1>
+      </div>
+      <div class="image-section">
+        <img src="../static/assets/nossosprodutos.JPG" alt="Nossos Produtos" class="img-nossosprodutos">
+      </div>
+    </div>
+
+    <!-- Filtros por categoria -->
+    <div class="filtros-categoria">
+      <button class="filtro-btn ativo" onclick="filtrarPor('todos')">Todos</button>
+      <button class="filtro-btn" onclick="filtrarPor('conjunto')">Conjuntos</button>
+      <button class="filtro-btn" onclick="filtrarPor('blusa')">Blusas</button>
+      <button class="filtro-btn" onclick="filtrarPor('top')">Top</button>
+      <button class="filtro-btn" onclick="filtrarPor('short')">Short</button>
+      <button class="filtro-btn" onclick="filtrarPor('calça')">Calça</button>
+      <button class="filtro-btn" onclick="filtrarPor('macaquinho')">Macaquinhos</button>
+      <button class="filtro-btn" onclick="filtrarPor('óculos')">Óculos</button>
+      <button class="filtro-btn" onclick="filtrarPor('garrafa')">Garrafas</button>
+      <button class="filtro-btn" onclick="filtrarPor('boné')">Bonés</button>
+      <button class="filtro-btn" onclick="filtrarPor('pochete')">Pochetes</button>
+    </div>
+
+    <!-- Filtro por ordem -->
+    <div class="filtro-horizontal">
+      <form action="{{ url_for('loja') }}" method="GET" class="filtro-form-horizontal">
+        <label for="ordem" class="filtro-label">Ordenar por:</label>
+        <select name="ordem" id="ordem" class="filtro-select">
+          <option value="mais_recentes">Mais recentes</option>
+          <option value="menor_preco">Menor preço</option>
+          <option value="maior_preco">Maior preço</option>
+        </select>
+        <button type="submit" class="filtro-botao">Aplicar</button>
+      </form>
+    </div>
+
+    <!-- Grade de produtos -->
+    <div class="products-grid">
+      {% for produto in produtos %}
+      <div class="product-card {{ produto.categoria }}">
+        <div class="product-wrapper">
+          <!-- Wishlist -->
+          <form action="{% if produto.IdProduto in favoritos %}{{ url_for('remover_wishlist', id_produto=produto.IdProduto) }}{% else %}{{ url_for('adicionar_wishlist') }}{% endif %}" method="POST" class="wishlist-form">
+            <input type="hidden" name="id_produto" value="{{ produto.IdProduto }}">
+            <button type="submit" class="wishlist-btn">
+              {% if produto.IdProduto in favoritos %}❤️{% else %}🤍{% endif %}
+            </button>
+          </form>
+
+          <!-- Imagem do Produto -->
+          <a href="{{ url_for('produto', id=produto.IdProduto) }}">
+            <img src="../static/assets/{{ produto.imagem }}" alt="Foto de {{ produto.nome }} na Cailla">
+          </a>
+        </div>
+
+        <div class="product-info">
+          <div class="product-name">{{ produto.nome }}</div>
+          <div class="product-price">R$ {{ produto.preco }}</div>
+
+          <div class="tamanhos-container" data-produto="{{ produto.IdProduto }}">
+  <label>Tamanho:</label>
+  <div class="tamanhos-botoes">
+    <button type="button" class="btn-tamanho" data-valor="P">P</button>
+    <button type="button" class="btn-tamanho" data-valor="M">M</button>
+    <button type="button" class="btn-tamanho" data-valor="G">G</button>
+    <button type="button" class="btn-tamanho" data-valor="GG">GG</button>
+  </div>
+  <input type="hidden" id="tamanho_{{ produto.IdProduto }}">
+</div>
+
+
+          <button class="btn-add-carrinho-ajax"
+            data-id="{{ produto.IdProduto }}"
+            data-nome="{{ produto.nome }}"
+            data-preco="{{ produto.preco }}"
+            data-imagem="{{ produto.imagem }}"
+            data-select="input#tamanho_{{ produto.IdProduto }}">
+            Adicionar ao Carrinho
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% include 'rodape.html' %}
+  </div>
+
+  <script src="../static/js/filtro.js"></script>
+  <script src="../static/js/carrinho.js"></script>
+</body>
+</html>
